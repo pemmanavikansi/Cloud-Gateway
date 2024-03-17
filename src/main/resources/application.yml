@@ -1,0 +1,29 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: CLOUD-GATEWAY
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: order
+            uri: lb://ORDER
+            predicates:
+             - Path= /order/**
+          - id: payment
+            uri: lb://PAYMENT
+            predicates:
+              - Path= /payment/**
+
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8083/eureka/
+  instance:
+    hostname: localhost
